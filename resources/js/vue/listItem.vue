@@ -19,8 +19,32 @@ export default {
   name: "listItem",
   props: ["item"],
   methods: {
-    updateCheck() {},
-    remvoeItem() {},
+    updateCheck() {
+      axios
+        .put(`api/item/${this.item.id}`, {
+          item: this.item,
+        })
+        .then((response) => {
+          if (response.status == 200) {
+            this.$emit("itemchanged");
+          }
+        })
+        .catch((erro) => {
+          console.log(error);
+        });
+    },
+    remvoeItem() {
+      axios
+        .delete(`api/item/${this.item.id}`)
+        .then((response) => {
+          if (response.status == 200) {
+            this.$emit("itemchanged");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
 };
 </script>
